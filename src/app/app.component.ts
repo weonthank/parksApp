@@ -3,24 +3,23 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { ParkData } from '../providers/park-data';
+import { ParkData } from './providers/park-data';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-})
-
-@Component({
-
+  providers: [ParkData]
 })
 
 export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    public parkData: ParkData
   ) {
     this.initializeApp();
+    console.log(parkData.load());
   }
 
   initializeApp() {
@@ -29,5 +28,7 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
+  
 
 }

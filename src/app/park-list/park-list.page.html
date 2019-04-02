@@ -1,17 +1,29 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>ParkList</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let park of parks" ↵ (click)="goParkDetails(park)" detail-push>
+  <ion-toolbar color="primary">
+    <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="getParks($event)" (ionClear)="resetList($event)">
+    </ion-searchbar>
+  </ion-toolbar>
+
+  <ion-virtual-scroll padding [items]="parks" [headerFn]="customHeaderFn">
+    <ion-item-divider *virtualHeader="let header" color="primary">
+      {{ header }}
+    </ion-item-divider>
+    <ion-item (click)="goParkDetails(park)" class="parklist" *virtualItem="let park">
       <ion-thumbnail slot="start">
-        <img src="assets/img/thumbs/{{park.image}}">
+        <ion-img src="assets/img/thumbs/{{ park.image }}"></ion-img>
       </ion-thumbnail>
-      <h2>{{park.name}}</h2>
-      <p>{{park.state}}</p>
+      <ion-label>
+        <span>{{ park.name }}</span>
+        <br>
+        {{ park.state }}
+      </ion-label>
+
     </ion-item>
-  </ion-list>
+  </ion-virtual-scroll>
 </ion-content>
