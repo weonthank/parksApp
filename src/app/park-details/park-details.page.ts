@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { ParkData } from './../providers/park-data';
 
 @Component({
   selector: 'app-park-details',
@@ -7,7 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ParkDetailsPage implements OnInit {
 
-  constructor() { }
+  id: string;
+  parkInfo: Object;
+
+  constructor(public route: ActivatedRoute, public parkData: ParkData) {
+    this.id = this.route.snapshot.paramMap.get("id");
+    this.parkInfo = parkData.getPark(this.id);
+  }
 
   ngOnInit() {
   }

@@ -27,4 +27,26 @@ export class ParkData {
             return data;
         });
     }
+
+    getPark(id) {
+        let park = "NOT FOUND";
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i].id == id) {
+                park = this.data[i];
+            }
+        }
+        return park;
+    }
+
+    getFilteredParks(queryString) {
+        return this.load().then(Parks => {
+            let theFilteredParks: any = [];
+            for (let thePark of Parks) {
+                if (thePark.name.toLowerCase().indexOf(queryString.toLowerCase()) > -1) {
+                    theFilteredParks.push(thePark);
+                }
+            }
+            return theFilteredParks;
+        });
+    }
 }
